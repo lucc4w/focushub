@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FocusHub · Produtividade com Rádio</title>
+  <meta name="description" content="Hub de produtividade pessoal: planejamento, progresso e concluídos — com rádio de fundo via radio-browser." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== BARRA SUPERIOR ===================== -->
+  <header class="header">
+    <div class="header-left">
+      <button class="btn btn-primary" id="btnNovaTarefa">+ Nova Tarefa</button>
+      <div class="stat-pills">
+        <span class="pill pill-plan"><b id="statPlanejamento">0</b> no plano</span>
+        <span class="pill pill-prog"><b id="statProgresso">0</b> em progresso</span>
+        <span class="pill pill-done"><b id="statConcluido">0</b> concluídas</span>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="mini-player" id="miniPlayer" hidden>
+        <span class="mp-icon" id="mpIcon">📻</span>
+        <div class="mp-info">
+          <strong id="mpNome">—</strong>
+          <span id="mpPais"></span>
+        </div>
+        <div class="eq" id="mpEq" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+        <button class="mp-btn" id="mpPlay" aria-label="Tocar ou pausar">▶</button>
+        <input type="range" id="mpVolume" min="0" max="100" aria-label="Volume" />
+        <button class="mp-btn mp-close" id="mpStop" aria-label="Fechar player">✕</button>
+      </div>
+      <button class="btn btn-radio" id="btnAbrirRadio" title="Buscar e tocar rádios ao vivo">FFM</button>
+    </div>
+  </header>
+
+  <!-- ===================== CONTEÚDO ===================== -->
+  <main class="main">
+
+    <section class="titulo-site" aria-label="FocusHub">
+      <h1>Focus<span>Hub</span></h1>
+      <p class="tagline">Planeje. Progrida. Conclua — com uma boa trilha sonora.</p>
+    </section>
+
+    <section class="progresso-geral card-glass">
+      <div class="pg-head">
+        <h2>Progresso geral</h2>
+        <span class="pg-percent" id="pgPercent">0%</span>
+      </div>
+      <div class="pg-bar"><div class="pg-fill" id="pgFill"></div></div>
+      <p class="pg-hint" id="pgHint">Adicione sua primeira tarefa para começar.</p>
+    </section>
+
+    <section class="board" id="board">
+
+      <!-- Coluna 1 -->
+      <div class="column" data-status="planejamento">
+        <header class="col-head col-plan">
+          <h3>Planejamento</h3>
+          <span class="col-count" id="countPlanejamento">0</span>
+        </header>
+        <p class="col-sub">O que vai acontecer</p>
+        <div class="col-body" data-status="planejamento" id="colPlanejamento"></div>
+      </div>
+
+      <!-- Coluna 2 -->
+      <div class="column" data-status="progresso">
+        <header class="col-head col-prog">
+          <h3>Em Progresso</h3>
+          <span class="col-count" id="countProgresso">0</span>
+        </header>
+        <p class="col-sub">O que está rolando agora</p>
+        <div class="col-body" data-status="progresso" id="colProgresso"></div>
+      </div>
+
+      <!-- Coluna 3 -->
+      <div class="column" data-status="concluido">
+        <header class="col-head col-done">
+          <h3>Concluídos</h3>
+          <span class="col-count" id="countConcluido">0</span>
+          <button class="btn-limpar" id="btnLimparConcluidas" title="Remover todas as tarefas concluídas" hidden>🧹 Limpar</button>
+        </header>
+        <p class="col-sub">Vitórias do dia</p>
+        <div class="col-body" data-status="concluido" id="colConcluido"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Feito por @lucc4w. Suas preferências ficam salvas no navegador.</p>
+  </footer>
+
+  <!-- ===================== MODAL: TAREFA ===================== -->
+  <div class="modal-overlay" id="modalTarefa" aria-hidden="true">
+    <div class="modal modal-tarefa" role="dialog" aria-modal="true" aria-labelledby="modalTarefaTitulo">
+      <header class="modal-head">
+        <div>
+          <h3 id="modalTarefaTitulo">Nova tarefa</h3>
+          <p class="modal-sub">Organize suas ideias antes de executar.</p>
+        </div>
+        <button class="modal-close" data-close="modalTarefa" aria-label="Fechar">✕</button>
+      </header>
+      <form id="formTarefa" novalidate>
+        <label class="campo">
+          <span>Título *</span>
+          <input type="text" id="inpTitulo" maxlength="120" placeholder="Ex.: Estudar inglês por 30 min" required />
+        </label>
+        <label class="campo">
+          <span>Descrição <em>(opcional)</em></span>
+          <textarea id="inpDesc" rows="3" maxlength="400" placeholder="Detalhes, links, critérios de pronto..."></textarea>
+        </label>
+        <div class="row-2">
+          <label class="campo">
+            <span>Prioridade</span>
+            <select id="inpPrioridade">
+              <option value="baixa">Baixa</option>
+              <option value="media" selected>Média</option>
+              <option value="alta">Alta</option>
+            </select>
+          </label>
+          <label class="campo">
+            <span>Prazo <em>(opcional)</em></span>
+            <input type="date" id="inpPrazo" />
+          </label>
+        </div>
+        <footer class="form-actions">
+          <button type="button" class="btn btn-ghost" data-close="modalTarefa">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar tarefa</button>
+        </footer>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================== PAINEL: RÁDIO (abre ao lado esquerdo do botão) ===================== -->
+  <div class="radio-popover" id="modalRadio" role="dialog" aria-hidden="true" aria-labelledby="radioTitulo">
+    <header class="modal-head">
+      <div>
+        <h3 id="radioTitulo">📡 Rádio de fundo</h3>
+        <p class="modal-sub">Busque estações ao vivo e toque enquanto você produz.</p>
+      </div>
+      <button class="modal-close" data-close="modalRadio" aria-label="Fechar">✕</button>
+    </header>
+
+    <div class="radio-search">
+      <span class="rs-icon" aria-hidden="true">🔎</span>
+      <input type="search" id="inpBuscaRadio" placeholder="Buscar por nome: jazz, antena 1, rock..." autocomplete="off" />
+    </div>
+
+    <div class="chips" id="chipsGeneros" role="group" aria-label="Filtros de rádios">
+      <button class="chip active" data-pais="BR">🇧🇷 Brasileiras</button>
+      <button class="chip" data-pais="">🔥 Populares</button>
+      <button class="chip" data-tag="mpb">MPB</button>
+      <button class="chip" data-tag="sertanejo">Sertanejo</button>
+      <button class="chip" data-tag="samba">Samba</button>
+      <button class="chip" data-tag="forro">Forró</button>
+      <button class="chip" data-tag="funk">Funk</button>
+      <button class="chip" data-tag="bossa nova">Bossa Nova</button>
+      <button class="chip" data-tag="pop">Pop</button>
+      <button class="chip" data-tag="rock">Rock</button>
+      <button class="chip" data-tag="jazz">Jazz</button>
+      <button class="chip" data-tag="lo-fi">Lo-fi</button>
+      <button class="chip" data-tag="classical">Clássica</button>
+      <button class="chip" data-tag="electronic">Eletrônica</button>
+      <button class="chip" data-tag="piano">Piano</button>
+      <button class="chip" data-tag="news">Notícias</button>
+    </div>
+
+    <div class="radio-results" id="radioResults"></div>
+    <p class="radio-status" id="radioStatus" role="status"></p>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+
+  <audio id="radioAudio" preload="none"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

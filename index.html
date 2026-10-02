@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FocusHub · Produtividade com Rádio</title>
-  <meta name="description" content="Hub de produtividade pessoal: planejamento, progresso e concluídos — com rádio de fundo via radio-browser." />
+  <title>Compasso · Produtividade com Rádio</title>
+  <meta name="description" content="Compasso: organize o dia entre planejamento, progresso e concluídos — com rádio de fundo para manter o ritmo." />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -38,9 +38,8 @@
   <!-- ===================== CONTEÚDO ===================== -->
   <main class="main">
 
-    <section class="titulo-site" aria-label="FocusHub">
-      <h1>Focus<span>Hub</span></h1>
-      <p class="tagline">Planeje. Progrida. Conclua — com uma boa trilha sonora.</p>
+    <section class="titulo-site" aria-label="Compasso">
+      <h1>Com<span>passo</span></h1>
     </section>
 
     <section class="progresso-geral card-glass">
@@ -60,7 +59,7 @@
           <h3>Planejamento</h3>
           <span class="col-count" id="countPlanejamento">0</span>
         </header>
-        <p class="col-sub">O que vai acontecer</p>
+        <p class="col-sub">O que está na fila</p>
         <div class="col-body" data-status="planejamento" id="colPlanejamento"></div>
       </div>
 
@@ -70,7 +69,7 @@
           <h3>Em Progresso</h3>
           <span class="col-count" id="countProgresso">0</span>
         </header>
-        <p class="col-sub">O que está rolando agora</p>
+        <p class="col-sub">Tocando agora</p>
         <div class="col-body" data-status="progresso" id="colProgresso"></div>
       </div>
 
@@ -81,7 +80,7 @@
           <span class="col-count" id="countConcluido">0</span>
           <button class="btn-limpar" id="btnLimparConcluidas" title="Remover todas as tarefas concluídas" hidden>🧹 Limpar</button>
         </header>
-        <p class="col-sub">Vitórias do dia</p>
+        <p class="col-sub">As que já tocaram</p>
         <div class="col-body" data-status="concluido" id="colConcluido"></div>
       </div>
 
@@ -138,7 +137,7 @@
     <header class="modal-head">
       <div>
         <h3 id="radioTitulo">📡 Rádio de fundo</h3>
-        <p class="modal-sub">Busque estações ao vivo e toque enquanto você produz.</p>
+        <p class="modal-sub">Busque estações ao vivo e mantenha o compasso enquanto produz.</p>
       </div>
       <button class="modal-close" data-close="modalRadio" aria-label="Fechar">✕</button>
     </header>

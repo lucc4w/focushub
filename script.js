@@ -1,7 +1,7 @@
 'use strict';
 
 /* =====================================================
-   FocusHub — lógica do aplicativo
+   Compasso — lógica do aplicativo
    1) Kanban: planejamento → progresso → concluído
    2) Rádio de fundo via API radio-browser
    ===================================================== */
@@ -42,7 +42,7 @@ function toast(msg, tipo = 'sucesso') {
 }
 
 function confete(x, y) {
-  const cores = ['#5fffb0', '#df0c4b', '#9e9eff', '#ffffff', '#bd0045'];
+  const cores = ['#2e7d54', '#24405e', '#9a6a1b', '#5c6675', '#b3382e', '#8fa3b8'];
   for (let i = 0; i < 18; i++) {
     const p = document.createElement('span');
     p.className = 'confete';
@@ -65,9 +65,9 @@ const novoId = () => (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-$
 
 const ORDEM_STATUS = ['planejamento', 'progresso', 'concluido'];
 const TEXTO_VAZIO = {
-  planejamento: 'Nada planejado ainda.<br>Comece com uma ideia.',
-  progresso: 'Nenhuma tarefa em progresso.<br>Arraste um cartão para cá.',
-  concluido: 'Nada concluído ainda.<br>Sua primeira vitória aparece aqui.',
+  planejamento: 'Nada planejado ainda.<br>Escreva a primeira nota do seu dia.',
+  progresso: 'Nada tocando agora.<br>Arraste um cartão para a frente.',
+  concluido: 'Nada concluído ainda.<br>Feche o seu primeiro compasso.',
 };
 const ROTULO_PRIORIDADE = { alta: 'Alta', media: 'Média', baixa: 'Baixa' };
 
@@ -170,10 +170,10 @@ function renderizar() {
   $('#pgPercent').textContent = `${pct}%`;
   $('#pgFill').style.width = `${pct}%`;
   $('#pgHint').textContent = total === 0
-    ? 'Adicione sua primeira tarefa para começar.'
+    ? 'Adicione a primeira nota do seu dia.'
     : pct === 100
-      ? 'Tudo concluído! Curta uma rádio para celebrar.'
-      : `Você concluiu ${contagens.concluido} de ${total} tarefas. Continue assim.`;
+      ? 'Compasso completo. Curta uma rádio para celebrar.'
+      : `Você concluiu ${contagens.concluido} de ${total} tarefas. Mantenha o compasso.`;
 }
 
 /* ---------- Movimentação ---------- */
